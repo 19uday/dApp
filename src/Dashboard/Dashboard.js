@@ -18,7 +18,6 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -26,9 +25,10 @@ import MyActivity from './MyActivity';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Web3 from 'web3';
+import { useEffect } from 'react';
 
 function Copyright() {
   return (
@@ -137,6 +137,7 @@ export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [occupier, setOccupier] = React.useState("team");
+  const [account, setAccount] = React.useState("");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -149,6 +150,32 @@ export default function Dashboard() {
   };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+
+
+/*   useEffect(() => {
+    // You need to restrict it at some point
+    // This is just dummy code and should be replaced by actual
+    if (!account) {
+        getAccount();
+    }
+  }, []);
+
+  const getAccount = async () => {
+    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
+    console.log(accounts);
+    setAccount(accounts[0]);
+    console.log(account)
+  }; */
+
+  useEffect(() => {
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+      web3.eth.getAccounts().then(result => {
+        console.log(result);
+        setAccount(result[0]);
+      })
+    }, []);
 
   return (
     <div className={classes.root}>
@@ -167,6 +194,9 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
+          <p>
+            {account}
+          </p>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
