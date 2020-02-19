@@ -27,7 +27,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Web3 from 'web3';
+import Tasks from './Tasks';
 import { useEffect } from 'react';
 
 function Copyright() {
@@ -169,14 +169,6 @@ export default function Dashboard() {
     console.log(account)
   }; */
 
-  useEffect(() => {
-      const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
-      web3.eth.getAccounts().then(result => {
-        console.log(result);
-        setAccount(result[0]);
-      })
-    }, []);
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -249,47 +241,7 @@ export default function Dashboard() {
         <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
             {/* Chart */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={clsx(fixedHeightPaper, classes.yellow)}>
-                <center>
-                  <h3>UI Design</h3>
-                  <h5>Design robust and beautful UI for the application</h5>
-                  <h6>10hrs</h6>
-                  <h6>Deadline: 23rd Jan 2020</h6>
-                </center>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={clsx(fixedHeightPaper, classes.red)}>
-              <center>
-                  <h3>Motivation Decision</h3>
-                  <h5>Conclude on a proper motivation for the project.</h5>
-                  <h6>10hrs</h6>
-                  <h6>Deadline: 23rd Jan 2020</h6>
-              </center>
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={clsx(fixedHeightPaper, classes.green)}>
-              <center>
-                  <h3>Motivation Decision</h3>
-                  <h5>Conclude on a proper motivation for the project.</h5>
-                  <h6>10hrs</h6>
-                  <h6>Deadline: 23rd Jan 2020</h6>
-              </center>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={clsx(fixedHeightPaper, classes.yellow)}>
-              <center>
-                  <h3>Motivation Decision</h3>
-                  <h5>Conclude on a proper motivation for the project.</h5>
-                  <h6>10hrs</h6>
-                  <h6>Deadline: 23rd Jan 2020</h6>
-              </center>              
-              </Paper>
-            </Grid>
+            <Tasks />
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
